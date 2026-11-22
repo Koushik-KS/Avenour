@@ -1,18 +1,38 @@
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   Flame, Beef, Wheat, Droplets, Moon, Plus, Minus,
   Lightbulb, Camera, CalendarDays, Dumbbell,
-  TrendingUp, ArrowRight, Clock
+  TrendingUp, ArrowRight, Clock, Footprints,
+  Play, Pause, RotateCcw
 } from 'lucide-react'
 import './Home.css'
 
 const meals = [
-  { name: 'Breakfast', kcal: 450, emoji: '🥣', food: 'Oats & fruits' },
-  { name: 'Lunch', kcal: 620, emoji: '🍛', food: 'Rice & curry' },
-  { name: 'Dinner', kcal: 350, emoji: '🥗', food: 'Salad & protein' },
+  { name: 'Breakfast', kcal: 450, image: '/breakfast.jpg', food: 'Oats & fruits' },
+  { name: 'Lunch', kcal: 620, image: '/lunch.jpg', food: 'Rice & curry' },
+  { name: 'Evening Snack', kcal: 200, image: '/snacks.jpg', food: 'Healthy snacks' },
+  { name: 'Dinner', kcal: 350, image: '/dinner.jpg', food: 'Salad & protein' },
 ]
+
+const STEP_GOAL = 10000
+const STEP_LENGTH_METERS = 0.7
+
+function getTodayKey() {
+  const now = new Date()
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
+}
+
+function loadSavedSteps() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('avenour_steps') || '{}')
+    if (saved.date === getTodayKey()) return saved.steps || 0
+  } catch {
+    // Ignore invalid saved data
+  }
+  return 0
+}
 
 function calculateSleepDuration(sleepTime, wakeTime) {
   if (!sleepTime || !wakeTime) return null
@@ -23,7 +43,6 @@ function calculateSleepDuration(sleepTime, wakeTime) {
   let start = sleepHours * 60 + sleepMinutes
   let end = wakeHours * 60 + wakeMinutes
 
-  // Handles sleep crossing midnight
   if (end <= start) end += 24 * 60
 
   const duration = end - start
@@ -45,6 +64,141 @@ function Home() {
   const [sleepTime, setSleepTime] = useState('')
   const [wakeTime, setWakeTime] = useState('')
   const sleepDuration = calculateSleepDuration(sleepTime, wakeTime)
+
+  // Step tracker
+  const [steps, setSteps] = useState(loadSavedSteps)
+  const [tracking, setTracking] = useState(false)
+  const [sensorStatus, setSensorStatus] = useState('Ready to track')
+  const [manualSteps, setManualSteps] = useState('')
+  const lastMotionRef = useRef(null)
+  const lastStepTimeRef = useRef(0)
+  const stepGoal = STEP_GOAL
+
+  const stepPercent = Math.min((steps / stepGoal) * 100, 100)
+  const distanceKm = (steps * STEP_LENGTH_METERS / 1000).toFixed(2)
+  const activityCalories = Math.round(steps * 0.04)
+
+  // Save today's steps
+  useEffect(() => {
+    localStorage.setItem('avenour_steps', JSON.stringify({
+      date: getTodayKey(),
+      steps
+    }))
+  }, [steps])
+
+  // Reset steps when the day changes
+  useEffect(() => {
+    const checkDate = () => {
+      try {
+        const saved = JSON.parse(localStorage.getItem('avenour_steps') || '{}')
+        if (saved.date !== getTodayKey()) {
+          setSteps(0)
+          setTracking(false)
+          setSensorStatus('New day — ready to track')
+          lastMotionRef.current = null
+        }
+      } catch {
+        setSteps(0)
+      }
+    }
+
+    const interval = setInterval(checkDate, 60000)
+    return () => clearInterval(interval)
+  }, [])
+
+  // Motion sensor step detection
+  useEffect(() => {
+    if (!tracking) return
+
+    const handleMotion = (event) => {
+      const acceleration = event.accelerationIncludingGravity || event.acceleration
+      if (!acceleration) return
+
+      const x = acceleration.x ?? 0
+      const y = acceleration.y ?? 0
+      const z = acceleration.z ?? 0
+
+      const current = { x, y, z }
+
+      if (lastMotionRef.current) {
+        const previous = lastMotionRef.current
+
+        const changeX = current.x - previous.x
+        const changeY = current.y - previous.y
+        const changeZ = current.z - previous.z
+
+        const magnitude = Math.sqrt(
+          changeX * changeX + changeY * changeY + changeZ * changeZ
+        )
+
+        const now = Date.now()
+
+        // Movement threshold + debounce to reduce false step counts
+        if (magnitude > 2.2 && now - lastStepTimeRef.current > 350) {
+          setSteps((prev) => prev + 1)
+          lastStepTimeRef.current = now
+        }
+      }
+
+      lastMotionRef.current = current
+    }
+
+    window.addEventListener('devicemotion', handleMotion)
+
+    return () => {
+      window.removeEventListener('devicemotion', handleMotion)
+    }
+  }, [tracking])
+
+  // Start sensor tracking
+  const startTracking = async () => {
+    if (!('DeviceMotionEvent' in window)) {
+      setSensorStatus('Motion sensor unavailable. Use manual entry.')
+      return
+    }
+
+    try {
+      // iOS permission request, when required
+      if (typeof DeviceMotionEvent.requestPermission === 'function') {
+        const permission = await DeviceMotionEvent.requestPermission()
+
+        if (permission !== 'granted') {
+          setSensorStatus('Motion permission denied. Use manual entry.')
+          return
+        }
+      }
+
+      lastMotionRef.current = null
+      lastStepTimeRef.current = 0
+      setTracking(true)
+      setSensorStatus('Move with your phone to count steps')
+    } catch {
+      setSensorStatus('Sensor permission unavailable. Use manual entry.')
+    }
+  }
+
+  const pauseTracking = () => {
+    setTracking(false)
+    lastMotionRef.current = null
+    setSensorStatus('Tracking paused')
+  }
+
+  const resetSteps = () => {
+    setTracking(false)
+    setSteps(0)
+    lastMotionRef.current = null
+    lastStepTimeRef.current = 0
+    setSensorStatus('Steps reset')
+  }
+
+  const addManualSteps = () => {
+    const amount = Number(manualSteps)
+    if (!Number.isFinite(amount) || amount <= 0) return
+
+    setSteps((prev) => prev + Math.floor(amount))
+    setManualSteps('')
+    setSensorStatus(`${Math.floor(amount).toLocaleString()} steps added manually`)
+  }
 
   return (
     <main className="home-page">
@@ -118,7 +272,7 @@ function Home() {
         </div>
       </section>
 
-      {/* Water & Sleep */}
+      {/* Water, Sleep & Steps */}
       <section className="daily-habits-grid">
 
         {/* Water Tracker */}
@@ -129,7 +283,7 @@ function Home() {
           </div>
 
           <div className="habit-value">
-            {(water / 1000).toFixed(2).replace(/\.?0+$/, '')}
+            {(water / 1000).toFixed(2)}
             <small> / 2.5 L</small>
           </div>
 
@@ -205,6 +359,89 @@ function Home() {
             </label>
           </div>
         </div>
+
+        {/* Step Tracker */}
+        <div className="habit-card step-card">
+          <div className="step-card-heading">
+            <div className="habit-heading step-heading">
+              <Footprints size={24} />
+              <span>Steps Today</span>
+            </div>
+
+            <button
+              className="step-reset-btn"
+              onClick={resetSteps}
+              title="Reset steps"
+              aria-label="Reset steps"
+            >
+              <RotateCcw size={16} />
+            </button>
+          </div>
+
+          <div className="step-count-row">
+            <strong>{steps.toLocaleString()}</strong>
+            <span>/ {stepGoal.toLocaleString()}</span>
+          </div>
+
+          <div className="step-progress-track">
+            <div
+              className="step-progress-fill"
+              style={{ width: `${stepPercent}%` }}
+            />
+          </div>
+
+          <div className="step-progress-label">
+            <span>{Math.round(stepPercent)}% of daily goal</span>
+            <span>{Math.max(stepGoal - steps, 0).toLocaleString()} left</span>
+          </div>
+
+          <div className="step-stats">
+            <div>
+              <span>Distance</span>
+              <strong>{distanceKm} km</strong>
+            </div>
+            <div>
+              <span>Activity calories</span>
+              <strong>~{activityCalories} kcal</strong>
+            </div>
+          </div>
+
+          <div className="step-tracking-status">
+            <span className={`step-status-dot ${tracking ? 'active' : ''}`} />
+            {sensorStatus}
+          </div>
+
+          <button
+            className={`step-start-btn ${tracking ? 'is-tracking' : ''}`}
+            onClick={tracking ? pauseTracking : startTracking}
+          >
+            {tracking ? <Pause size={17} /> : <Play size={17} />}
+            {tracking ? 'Pause Tracking' : 'Start Walking'}
+          </button>
+
+          <div className="step-manual-entry">
+            <input
+              type="number"
+              min="1"
+              step="1"
+              placeholder="Enter steps manually"
+              value={manualSteps}
+              onChange={(e) => setManualSteps(e.target.value)}
+            />
+            <button
+              onClick={addManualSteps}
+              disabled={!manualSteps || Number(manualSteps) <= 0}
+              title="Add manual steps"
+            >
+              <Plus size={18} />
+            </button>
+          </div>
+
+          <p className="step-disclaimer">
+            Sensor tracking works while this page is active. Background counting
+            may stop when your phone locks.
+          </p>
+        </div>
       </section>
 
       {/* AI Insight */}
@@ -246,8 +483,8 @@ function Home() {
               key={meal.name}
               onClick={() => navigate('/diary')}
             >
-              <div className={`meal-visual meal-${meal.name.toLowerCase()}`}>
-                <span>{meal.emoji}</span>
+              <div className={`meal-visual meal-${meal.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                <img src={meal.image} alt={meal.name} />
               </div>
 
               <span className="meal-name">{meal.name}</span>
