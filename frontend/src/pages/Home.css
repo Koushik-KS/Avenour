@@ -1,0 +1,417 @@
+
+.home-page {
+  width: min(100%, 1100px);
+  margin: 0 auto;
+  padding: 36px 32px;
+  color: var(--color-text);
+}
+
+.home-welcome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.home-eyebrow {
+  color: var(--color-primary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  margin-bottom: 12px;
+}
+
+.home-welcome h1 {
+  font-size: clamp(25px, 4vw, 34px);
+  letter-spacing: -1px;
+}
+
+.home-welcome h1 span {
+  color: var(--color-primary);
+}
+
+.home-subtitle {
+  color: var(--color-text-secondary);
+  margin-top: 8px;
+  font-size: 15px;
+}
+
+.nutrition-card {
+  background: linear-gradient(145deg, #122b21, #10221b);
+  border: 1px solid rgba(52, 211, 153, 0.16);
+  border-radius: 22px;
+  padding: 28px;
+}
+
+.calorie-overview {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  align-items: center;
+  gap: 32px;
+}
+
+.calorie-ring {
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #40e58e 0% 64.5%,
+    #294b3c 64.5% 100%
+  );
+  display: grid;
+  place-items: center;
+  margin: auto;
+  position: relative;
+}
+
+.calorie-ring::after {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  background: #12271f;
+  border-radius: 50%;
+}
+
+.calorie-ring-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flame-icon {
+  color: #f5b942;
+  margin-bottom: 6px;
+}
+
+.calorie-ring-inner strong {
+  font-family: 'Manrope', sans-serif;
+  font-size: 34px;
+  line-height: 1.2;
+}
+
+.calorie-ring-inner span {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+.calorie-details {
+  border-left: 1px solid var(--color-border-strong);
+  padding-left: 32px;
+}
+
+.card-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--color-text-secondary);
+}
+
+.calorie-details h2 {
+  font-size: 38px;
+  margin: 8px 0 18px;
+}
+
+.calorie-details h2 small {
+  font-size: 19px;
+  color: var(--color-text-secondary);
+}
+
+.remaining-calories {
+  display: inline-flex;
+  background: #39d985;
+  color: #06271a;
+  border-radius: 100px;
+  padding: 11px 20px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.macro-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--color-border);
+  margin-top: 28px;
+  padding-top: 24px;
+}
+
+.macro-item {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  column-gap: 12px;
+  row-gap: 12px;
+  padding: 0 20px;
+  border-right: 1px solid var(--color-border-strong);
+}
+
+.macro-item:first-child {
+  padding-left: 0;
+}
+
+.macro-item:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.macro-item > svg {
+  margin-top: 3px;
+}
+
+.macro-name {
+  display: block;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+.macro-item strong {
+  display: block;
+  font-size: 19px;
+  margin-top: 3px;
+}
+
+.macro-item strong small {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.macro-percent {
+  display: block;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.macro-track {
+  grid-column: 1 / -1;
+  height: 7px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.macro-track div {
+  height: 100%;
+  border-radius: inherit;
+}
+
+.protein > svg,
+.protein .macro-percent {
+  color: #55b9f5;
+}
+
+.protein .macro-track div {
+  background: #55b9f5;
+}
+
+.carbs > svg,
+.carbs .macro-percent {
+  color: #f0a94c;
+}
+
+.carbs .macro-track div {
+  background: #f0a94c;
+}
+
+.fat > svg,
+.fat .macro-percent {
+  color: #a78bfa;
+}
+
+.fat .macro-track div {
+  background: #a78bfa;
+}
+
+@media (max-width: 650px) {
+  .home-page {
+    padding: 24px 16px;
+  }
+
+  .nutrition-card {
+    padding: 20px 16px;
+  }
+
+  .calorie-overview {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .calorie-ring {
+    width: 190px;
+    height: 190px;
+  }
+
+  .calorie-details {
+    border-left: none;
+    border-top: 1px solid var(--color-border-strong);
+    padding: 20px 0 0;
+    text-align: center;
+  }
+
+  .calorie-details h2 {
+    font-size: 32px;
+  }
+
+  .macro-grid {
+    gap: 10px;
+  }
+
+  .macro-item {
+    grid-template-columns: 1fr;
+    padding: 0 10px;
+    gap: 5px;
+  }
+
+  .macro-item > svg {
+    margin-bottom: 4px;
+  }
+
+  .macro-item strong {
+    font-size: 15px;
+  }
+
+  .macro-item strong small {
+    font-size: 11px;
+  }
+
+  .macro-percent {
+    font-size: 11px;
+  }
+
+  .macro-track {
+    margin-top: 6px;
+  }
+}
+
+
+/* Water & Sleep section */
+.daily-habits-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.habit-card {
+  min-width: 0;
+  padding: 22px;
+  border-radius: 20px;
+  background: #13251f;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.habit-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #60a5fa;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.habit-value {
+  font-family: 'Manrope', sans-serif;
+  font-size: 27px;
+  font-weight: 700;
+  margin-top: 12px;
+}
+
+.habit-value small {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.habit-progress {
+  height: 7px;
+  margin-top: 12px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.habit-progress div {
+  height: 100%;
+  border-radius: inherit;
+  background: #4daaf5;
+  transition: width 0.3s ease;
+}
+
+.water-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.water-percent {
+  font-size: 12px;
+  color: #91a39a;
+}
+
+.water-add-btn {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.12);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  transition: all 0.2s ease;
+}
+
+.water-add-btn:hover:not(:disabled) {
+  background: rgba(96, 165, 250, 0.25);
+  transform: scale(1.05);
+}
+
+.water-add-btn:disabled {
+  opacity: 0.4;
+}
+
+.sleep-heading {
+  color: #a78bfa;
+}
+
+.sleep-value {
+  font-family: 'Manrope', sans-serif;
+  font-size: 27px;
+  font-weight: 700;
+  margin-top: 14px;
+}
+
+.sleep-caption {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+@media (max-width: 650px) {
+  .daily-habits-grid {
+    gap: 12px;
+  }
+
+  .habit-card {
+    padding: 16px 14px;
+    border-radius: 16px;
+  }
+
+  .habit-heading {
+    font-size: 12px;
+    gap: 7px;
+  }
+
+  .habit-heading svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .habit-value,
+  .sleep-value {
+    font-size: 23px;
+  }
+
+  .habit-value small {
+    font-size: 11px;
+  }
+}

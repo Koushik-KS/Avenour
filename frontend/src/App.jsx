@@ -1,51 +1,21 @@
-
-import { Leaf, Sparkles } from 'lucide-react'
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import BottomNav from './components/layout/BottomNav'
+import Home from './pages/Home'
 function App() {
   return (
-    <main className="foundation-page">
-      <div className="brand-mark">
-        <Leaf size={22} />
+    <BrowserRouter>
+      <div style={{ minHeight: '100vh', paddingBottom: '110px' }}>
+        <Routes>
+<Route path="/" element={<Home />} />
+          <Route path="/diary" element={<h1>Diary</h1>} />
+          <Route path="/scanner" element={<h1>Scanner</h1>} />
+          <Route path="/coach" element={<h1>AI Coach</h1>} />
+          <Route path="/profile" element={<h1>Profile</h1>} />
+        </Routes>
       </div>
 
-      <span className="foundation-label">
-        <Sparkles size={14} />
-        YOUR HEALTH, REIMAGINED
-      </span>
-
-      <h1>
-        Welcome to <span>Avenour.</span>
-      </h1>
-
-      <p className="foundation-description">
-        Intelligence for a healthier you.
-      </p>
-
-      <div className="foundation-card">
-        <div className="foundation-status">
-          <span className="status-dot" />
-          FOUNDATION INITIALIZED
-        </div>
-
-        <h2>Your wellness journey starts here.</h2>
-
-        <p>
-          Avenour is being built to bring nutrition, daily habits,
-          and intelligent health insights together in one place.
-        </p>
-
-        <div className="foundation-divider" />
-
-        <div className="foundation-footer">
-          <span>AVENOUR</span>
-          <span>01 — BUILDING YOUR FOUNDATION</span>
-        </div>
-      </div>
-
-      <span className="foundation-bottom">
-        DESIGNED FOR A HEALTHIER EVERYDAY
-      </span>
-    </main>
+      <BottomNav />
+    </BrowserRouter>
   )
 }
 

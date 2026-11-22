@@ -1,0 +1,91 @@
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 82px;
+  padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: rgba(7, 25, 19, 0.96);
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  z-index: 1000;
+}
+
+.bottom-nav-item {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: #82968b;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.bottom-nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom-nav-label {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.bottom-nav-item.active {
+  color: #42e895;
+}
+
+.scanner-nav-item {
+  position: relative;
+}
+
+.scanner-nav-item .scanner-icon {
+  width: 58px;
+  height: 58px;
+  margin-top: -32px;
+  border-radius: 50%;
+  background: #39e98b;
+  color: #06271a;
+  box-shadow: 0 0 24px rgba(57, 233, 139, 0.16);
+  border: 5px solid #071d17;
+}
+
+.scanner-nav-item .bottom-nav-label {
+  color: #e7f2eb;
+}
+
+.scanner-nav-item.active .scanner-icon {
+  background: #39e98b;
+  color: #06271a;
+}
+
+@media (min-width: 769px) {
+  .bottom-nav {
+    max-width: 520px;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+  }
+}
+
+@media (max-width: 380px) {
+  .bottom-nav-label {
+    font-size: 10px;
+  }
+
+  .scanner-nav-item .scanner-icon {
+    width: 52px;
+    height: 52px;
+  }
+}
