@@ -1,10 +1,13 @@
-
 .home-page {
-  width: min(100%, 1100px);
+  width: min(100%, 1200px);
   margin: 0 auto;
-  padding: 36px 32px;
+  padding: 28px 28px 150px;
   color: var(--color-text);
 }
+
+/* =========================
+   Welcome
+========================= */
 
 .home-welcome {
   display: flex;
@@ -35,6 +38,10 @@
   margin-top: 8px;
   font-size: 15px;
 }
+
+/* =========================
+   Nutrition Card
+========================= */
 
 .nutrition-card {
   background: linear-gradient(145deg, #122b21, #10221b);
@@ -126,6 +133,10 @@
   font-weight: 700;
   font-size: 14px;
 }
+
+/* =========================
+   Macros
+========================= */
 
 .macro-grid {
   display: grid;
@@ -221,9 +232,458 @@
   background: #a78bfa;
 }
 
+/* =========================
+   Water & Sleep
+========================= */
+
+.daily-habits-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 20px;
+  margin-bottom: 28px;
+  align-items: stretch;
+}
+
+.habit-card {
+  min-width: 0;
+  min-height: 220px;
+  padding: 22px;
+  border-radius: 20px;
+  background: #13251f;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.habit-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #60a5fa;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.habit-value {
+  font-family: 'Manrope', sans-serif;
+  font-size: 27px;
+  font-weight: 700;
+  margin-top: 12px;
+}
+
+.habit-value small {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+/* Water progress */
+
+.habit-progress {
+  height: 7px;
+  margin-top: 12px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.habit-progress div {
+  height: 100%;
+  border-radius: inherit;
+  background: #4daaf5;
+  transition: width 0.3s ease;
+}
+
+.water-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.water-percent {
+  font-size: 12px;
+  color: #91a39a;
+}
+
+/* Water - and + buttons */
+
+.water-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.water-control-btn {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  transition: background 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.water-minus-btn {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.1);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+}
+
+.water-minus-btn:hover:not(:disabled) {
+  background: rgba(96, 165, 250, 0.25);
+  transform: scale(1.05);
+}
+
+.water-add-btn {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.12);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+}
+
+.water-add-btn:hover:not(:disabled) {
+  background: rgba(96, 165, 250, 0.25);
+  transform: scale(1.05);
+}
+
+.water-control-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* Sleep tracker */
+
+.sleep-heading {
+  color: #a78bfa;
+}
+
+.sleep-value {
+  font-family: 'Manrope', sans-serif;
+  font-size: 27px;
+  font-weight: 700;
+  margin-top: 14px;
+}
+
+.sleep-caption {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.sleep-empty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+.sleep-inputs {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.sleep-inputs label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.sleep-inputs label span {
+  color: var(--color-text-secondary);
+  font-size: 11px;
+}
+
+.sleep-inputs input {
+  width: 100%;
+  min-width: 0;
+  padding: 8px 10px;
+  border-radius: 10px;
+  color: var(--color-text);
+  background: #0b1712;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  outline: none;
+  font: inherit;
+  font-size: 13px;
+  color-scheme: dark;
+}
+
+.sleep-inputs input:focus {
+  border-color: var(--color-primary);
+}
+
+.sleep-result {
+  margin-top: 12px;
+}
+
+.sleep-result .sleep-value {
+  margin-top: 0;
+}
+
+.sleep-result .sleep-caption {
+  margin-top: 4px;
+}
+
+/* =========================
+   AI Insight
+========================= */
+
+.ai-insight-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 20px;
+  padding: 22px 24px;
+  background: linear-gradient(120deg, #123426, #14291f);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  border-radius: 20px;
+}
+
+.insight-icon {
+  width: 54px;
+  height: 54px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #f5d65b;
+  background: rgba(245, 214, 91, 0.12);
+}
+
+.insight-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.insight-label {
+  color: #40e58e;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+}
+
+.insight-content h3 {
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+.insight-content p {
+  margin-top: 4px;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+.insight-action {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  color: #c3d5ca;
+  background: transparent;
+  border-radius: 50%;
+}
+
+.insight-action:hover {
+  color: var(--color-primary);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+/* =========================
+   Dashboard Sections
+========================= */
+
+.home-section {
+  margin-top: 32px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.section-heading h2 {
+  font-size: 22px;
+  letter-spacing: -0.5px;
+}
+
+.section-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-primary);
+  background: transparent;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.section-link:hover {
+  color: #6bf0ad;
+}
+
+/* =========================
+   Meal Cards
+========================= */
+
+.meals-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.meal-card,
+.add-meal-card {
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  color: var(--color-text);
+  background: #13251f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 17px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.meal-card:hover,
+.add-meal-card:hover {
+  border-color: rgba(16, 185, 129, 0.4);
+  transform: translateY(-2px);
+}
+
+.meal-visual {
+  width: 100%;
+  aspect-ratio: 1.3 / 1;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: radial-gradient(
+    circle at 50% 45%,
+    #526b4a 0%,
+    #293d2d 55%,
+    #17251e 100%
+  );
+}
+
+.meal-visual span {
+  font-size: clamp(38px, 5vw, 64px);
+  filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.3));
+}
+
+.meal-breakfast {
+  background: radial-gradient(circle, #7c6845, #403622 70%, #1d251c);
+}
+
+.meal-lunch {
+  background: radial-gradient(circle, #83653c, #49341f 70%, #1d251c);
+}
+
+.meal-dinner {
+  background: radial-gradient(circle, #466b4b, #273e2e 70%, #1d251c);
+}
+
+.meal-name {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.meal-calories {
+  margin-top: 2px;
+  color: #c5d2ca;
+  font-size: 12px;
+}
+
+.meal-food {
+  margin-top: 3px;
+  color: var(--color-text-muted);
+  font-size: 10px;
+  text-align: center;
+}
+
+.add-meal-card {
+  justify-content: center;
+  gap: 12px;
+  background: transparent;
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+  min-height: 100%;
+  color: var(--color-text-secondary);
+}
+
+.add-meal-card svg {
+  color: var(--color-primary);
+}
+
+.add-meal-card span {
+  font-size: 13px;
+}
+
+/* =========================
+   Quick Actions
+========================= */
+
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.quick-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 94px;
+  padding: 16px 8px;
+  color: #d7e5dc;
+  background: #142b22;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 17px;
+  transition: all 0.2s ease;
+}
+
+.quick-action:hover {
+  background: #1b382b;
+  border-color: rgba(16, 185, 129, 0.25);
+  transform: translateY(-2px);
+}
+
+.quick-action svg {
+  color: var(--color-primary);
+}
+
+.quick-action span {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* =========================
+   Bottom Navigation Fix
+========================= */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+/* =========================
+   Responsive - Tablet/Mobile
+========================= */
+
 @media (max-width: 650px) {
   .home-page {
-    padding: 24px 16px;
+    padding: 20px 14px 150px;
   }
 
   .nutrition-card {
@@ -280,119 +740,17 @@
   .macro-track {
     margin-top: 6px;
   }
-}
 
+  /* Habits */
 
-/* Water & Sleep section */
-.daily-habits-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  margin-top: 20px;
-}
-
-.habit-card {
-  min-width: 0;
-  padding: 22px;
-  border-radius: 20px;
-  background: #13251f;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-.habit-heading {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #60a5fa;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.habit-value {
-  font-family: 'Manrope', sans-serif;
-  font-size: 27px;
-  font-weight: 700;
-  margin-top: 12px;
-}
-
-.habit-value small {
-  font-size: 14px;
-  color: var(--color-text-secondary);
-  font-weight: 500;
-}
-
-.habit-progress {
-  height: 7px;
-  margin-top: 12px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.08);
-  overflow: hidden;
-}
-
-.habit-progress div {
-  height: 100%;
-  border-radius: inherit;
-  background: #4daaf5;
-  transition: width 0.3s ease;
-}
-
-.water-card-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 12px;
-}
-
-.water-percent {
-  font-size: 12px;
-  color: #91a39a;
-}
-
-.water-add-btn {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  border-radius: 12px;
-  color: #60a5fa;
-  background: rgba(96, 165, 250, 0.12);
-  border: 1px solid rgba(96, 165, 250, 0.2);
-  transition: all 0.2s ease;
-}
-
-.water-add-btn:hover:not(:disabled) {
-  background: rgba(96, 165, 250, 0.25);
-  transform: scale(1.05);
-}
-
-.water-add-btn:disabled {
-  opacity: 0.4;
-}
-
-.sleep-heading {
-  color: #a78bfa;
-}
-
-.sleep-value {
-  font-family: 'Manrope', sans-serif;
-  font-size: 27px;
-  font-weight: 700;
-  margin-top: 14px;
-}
-
-.sleep-caption {
-  color: var(--color-text-secondary);
-  font-size: 12px;
-  margin-top: 4px;
-}
-
-@media (max-width: 650px) {
   .daily-habits-grid {
-    gap: 12px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
   }
 
   .habit-card {
-    padding: 16px 14px;
+    min-height: 205px;
+    padding: 14px 12px;
     border-radius: 16px;
   }
 
@@ -414,4 +772,92 @@
   .habit-value small {
     font-size: 11px;
   }
+
+  .water-card-bottom {
+    gap: 8px;
+  }
+
+  .water-percent {
+    font-size: 10px;
+  }
+
+  .water-controls {
+    gap: 5px;
+  }
+
+  .water-control-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+  }
+
+  .sleep-inputs {
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .sleep-inputs input {
+    padding: 7px 5px;
+    font-size: 12px;
+  }
+
+  /* Sections */
+
+  .home-section {
+    margin-top: 26px;
+  }
+
+  .section-heading h2 {
+    font-size: 19px;
+  }
+
+  .meals-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .meal-visual {
+    aspect-ratio: 1.45 / 1;
+  }
+
+  .meal-visual span {
+    font-size: 48px;
+  }
+
+  .add-meal-card {
+    min-height: 160px;
+  }
+
+  .quick-actions-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  /* AI Insight */
+
+  .ai-insight-card {
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .insight-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .insight-content h3 {
+    font-size: 14px;
+  }
+
+  .insight-content p {
+    font-size: 12px;
+  }
+}
+
+/* =========================
+   Global Bottom Space
+========================= */
+
+body {
+  padding-bottom: 90px;
 }
