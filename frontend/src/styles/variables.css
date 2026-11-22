@@ -1,0 +1,53 @@
+
+:root {
+  /* Brand */
+  --color-primary: #10b981;
+  --color-primary-hover: #059669;
+  --color-primary-soft: rgba(16, 185, 129, 0.12);
+
+  /* Backgrounds */
+  --color-bg: #0b0f0e;
+  --color-surface: #121816;
+  --color-surface-elevated: #18211d;
+  --color-surface-hover: #1d2923;
+
+  /* Text */
+  --color-text: #f1f5f2;
+  --color-text-secondary: #a1ada6;
+  --color-text-muted: #6d7a72;
+
+  /* Borders */
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-border-strong: rgba(255, 255, 255, 0.12);
+
+  /* Status */
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+  --color-info: #60a5fa;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Layout */
+  --sidebar-width: 250px;
+  --content-max-width: 1440px;
+
+  /* Effects */
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.18);
+  --transition-fast: 160ms ease;
+}
